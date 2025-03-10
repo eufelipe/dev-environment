@@ -1,0 +1,43 @@
+# ------------------------------------------------------------------------------
+# ALIASES
+# ------------------------------------------------------------------------------
+alias zshconfig="nano ~/.zshrc"
+alias ohmyzsh="nano ~/.oh-my-zsh"
+
+alias c="clear"
+alias l="ls -lah"
+alias ll="ls -l"
+alias ls="ls -G"
+
+# Usar a lib safe-rm como 'rm'
+alias rm='safe-rm'
+
+# Navegação
+alias ..="cd .."
+alias ...="cd ../.."
+alias ~="cd ~"
+
+alias folder="open ."
+
+alias dev="cd ~/PROJETOS"
+alias docs="cd ~/Documents"
+alias downloads="cd ~/Downloads"
+alias ip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print \$2}'"
+
+# Limpeza / Sistema
+alias clear-derived-data="rm -rf ~/Library/Developer/Xcode/DerivedData/*"
+alias clear-cache="rm -rf ~/Library/Caches/*"
+alias kill-process="kill -9 \$(pgrep -f)"
+alias grep="grep --color=auto"
+alias please="sudo !!" 
+
+# Docker
+alias dps="docker ps"
+alias dimg="docker images"
+alias dcup="docker compose up"
+alias dcdown="docker compose down"
+
+# React Native
+alias metro="npx react-native start"
+alias emulator="$ANDROID_SDK/emulator/emulator"
+alias androidemulator="emulator -avd Pixel_3a_API_30_x86"
