@@ -1,0 +1,165 @@
+[user]
+  email = contato@eufelipe.com
+  name = Felipe Rosas
+  # Se quiser assinar commits:
+  # signingKey = SUA_CHAVE_GPG
+
+[core]
+  editor = code --wait
+  excludesfile = ~/.gitignore_global
+
+[init]
+  defaultBranch = main
+
+[pull]
+  rebase = true
+
+[rebase]
+  autoStash = true
+
+[merge]
+  tool = vscode
+
+[mergetool "vscode"]
+  cmd = "code --wait $MERGED"  
+
+[diff]
+  tool = vscode
+
+[difftool "vscode"]
+  cmd = "code --wait --diff "
+    
+
+[alias]
+  # ---------------------------------------------------------------------------
+  # ALIASES DE CHECKOUT / BRANCH / LOG
+  # ---------------------------------------------------------------------------
+
+  # troca de branch (ou volta para commit específico).
+  co = checkout
+
+  # cria e entra em uma nova branch.
+  cob = checkout -b
+
+  # exibe o histórico de commits em formato compacto e com gráficos.
+  lg = log --all --graph --decorate --oneline --abbrev-commit --pretty=format:'%C(blue)%h %C(red)%d %C(white)%s - %C(cyan)%cn, %C(green)%cr'
+
+  # faz checkout do commit anterior (`HEAD^1`).
+  prev = checkout HEAD^1
+
+  # ---------------------------------------------------------------------------
+  # ALIASES DE COMMIT
+  # ---------------------------------------------------------------------------
+
+  # adiciona todas as modificações (inclusive arquivos novos) e abre editor para mensagem de commit.
+  ac = "!git add -A && git commit"
+
+  # commita diretamente com a mensagem passada em linha de comando.
+  cm = "git commit -m"
+
+  # cria um commit “SAVEPOINT” rápido (sem precisar digitar mensagem).
+  save = "!git add -A && git commit -m 'SAVEPOINT'"
+
+  # semelhante, mas com a mensagem “WIP” (Work In Progress). Usa `-u` (add -u) que não inclui arquivos não rastreados.
+  wip = "!git add -u && git commit -m \"WIP\""
+
+  # reabre o último commit (inclui alterações pendentes).
+  amend = commit -a --amend
+
+  # reverte o último commit local (sem descartar as mudanças no diretório de trabalho, pois usa `--mixed`).
+  undo = reset HEAD~1 --mixed
+
+  # Aliases para criação de commit seguindo o  **Conventional Commits**:
+  feat = "!f() { git commit -m \"feat: $@\"; }; f"
+  chore = "!f() { git commit -m \"chore: $@\"; }; f"
+  fix  = "!f() { git commit -m \"fix: $@\"; }; f"
+  doc  = "!f() { git commit -m \"docs: $@\"; }; f"
+
+  # Permite rodar `commitizen` após adicionar as mudanças, para gerar commits no padrão conventional (prompt interativo).
+  cz = "commitizen"
+
+  # ---------------------------------------------------------------------------
+  # ALIASES DE STASH
+  # ---------------------------------------------------------------------------
+
+  # cria um stash com a mensagem “SAVEPOINT: {texto}” e inclui arquivos não rastreados (`-u`)
+  savepoint = "!f() { git stash save -u \"SAVEPOINT: $@\"; }; f"
+
+  # salva o stash com uma mensagem, incluindo arquivos não monitorados (-u)
+  ss = "!f() { git stash save -u \"$@\"; }; f"
+
+  # lista todos os stashes
+  sl = stash list
+
+  # aplica o stash mais recente (ou por índice)
+  sa = stash apply
+
+  # aplica e remove o stash da lista (pop)
+  sp = stash pop
+
+  # remove (`drop`) um stash específico (ex: `git sd 0` para stash@{0}).
+  sd = "!f() { git stash drop stash@{$1}; }; f"
+
+  # limpa todos os stashes (use com cuidado).
+  sc = stash clear
+
+  # ---------------------------------------------------------------------------
+  # ALIASES DE BRANCH / PULL
+  # ---------------------------------------------------------------------------
+
+  # mostra o status de forma resumida (`-sb`).
+  st = status -sb
+
+  # puxa (`pull`) mudanças do remoto (em modo rebase e prune) e atualiza submódulos.
+  up = "!git pull --rebase --prune $@ && git submodule update --init --recursive"
+
+  # deleta branches já “mergeadas” no branch principal (por padrão, `main`).
+  bclean = "!f() { git branch --merged ${1-main} | grep -v \" ${1-main}$\" | xargs git branch -d; }; f"
+
+  # troca para `main` (ou branch principal), roda `up` e então limpa branches já mergeadas via `bclean`.
+  bdone = "!f() { git checkout ${1-main} && git up && git bclean ${1-main}; }; f"
+
+  # ---------------------------------------------------------------------------
+  # ALIASES DE NAVEGAÇÃO, DIVERSOS E PUSH
+  # ---------------------------------------------------------------------------
+
+  # lista tags
+  tags = tag -l
+
+  # lista branches
+  branches = branch -a
+
+  # lista remotes
+  remotes = remote -v
+
+  # atalho para editar a config global (`git config --global -e`).
+  ec = config --global -e
+
+  # mostram quantos commits a sua branch está adiantada ou atrasada em relação a “origin/main”.
+  ahead = "!sh -c 'echo branch is $(git rev-list --count origin/main..HEAD) commits ahead main'"
+  behind = "!sh -c 'echo branch is $(git rev-list --count HEAD..origin/main) commits behind main'"
+
+  # exibição em árvore (arquivos do repo em forma hierárquica)
+  tree = "! git ls-tree --full-name --name-only -t -r HEAD | sed -e \"s/[^-][^\\/]*\\//   |/g\" -e \"s/|\\([^ ]\\)/|-- \\1/\""
+
+  # faz “push --force-with-lease” (mais seguro que `push -f`).
+  pf = push --force-with-lease
+
+  # ---------------------------------------------------------------------------
+  # ALIASES PARA LIDAR COM CONFLITOS E MERGE
+  # ---------------------------------------------------------------------------
+
+  # abre uma ferramenta de merge (definida em [merge] ou [mergetool]).
+  mt = mergetool
+
+  # aborta um merge em andamento.
+  ma = merge --abort
+
+  # aborta um rebase em andamento.
+  ra = rebase --abort
+
+  # continua um rebase após resolver conflitos.
+  rc = rebase --continue
+
+  # mostra apenas arquivos com conflito (UU = unmerged).
+  conflicts = "!git status --porcelain | grep '^UU' || echo 'No conflicts'"
