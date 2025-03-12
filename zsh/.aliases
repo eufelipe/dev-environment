@@ -1,15 +1,27 @@
 # ------------------------------------------------------------------------------
 # ALIASES
 # ------------------------------------------------------------------------------
-alias zshconfig="nano ~/.zshrc"
+
+alias zshconfig="nano -o ~/.zshrc && source ~/.zshrc"
 alias ohmyzsh="nano ~/.oh-my-zsh"
+alias sshconfig='nano ~/.ssh/config'
+alias aliasconfig='nano ~/.aliases && source ~/.aliases'
+alias exportsconfig='nano ~/.exports && source ~/.exports'
+alias functionsconfig='nano ~/.functions && source ~/.functions'
+alias hostsconfig='sudo nano /etc/hosts'
+alias gitconfig="nano ~/.gitconfig"
 
 alias c="clear"
 alias l="ls -lah"
-alias ll="ls -l"
+alias l1="l -1"
+alias ll="l -l"
 alias ls="ls -G"
+alias ln="ln -v"
+alias mkdir="mkdir -p"
+alias less='less -r'
+alias top="sudo htop"
 
-# Usar a lib safe-rm como 'rm'
+# Usar a lib safe-rm como 'rm' (sem perguntar para confirmar)
 alias rm='safe-rm'
 
 # Navegação
@@ -17,27 +29,108 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ~="cd ~"
 
-alias folder="open ."
-
+alias home="cd ~"
 alias dev="cd ~/PROJETOS"
 alias docs="cd ~/Documents"
 alias downloads="cd ~/Downloads"
-alias ip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print \$2}'"
 
-# Limpeza / Sistema
+# Abrir pasta atual no Finder
+alias folder="open ."
+
+# Limpeza 
 alias clear-derived-data="rm -rf ~/Library/Developer/Xcode/DerivedData/*"
 alias clear-cache="rm -rf ~/Library/Caches/*"
+
+# Sistema/Utilitários: 
+
+# IP
+alias ip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print $2}'"
+
+# Processos
 alias kill-process="kill -9 \$(pgrep -f)"
+
+# Grep
 alias grep="grep --color=auto"
+
+# Please sudo
 alias please="sudo !!" 
+
+# Atualizar sistema (macOS)
+alias update="brew update && brew upgrade"
+alias cleanup="brew cleanup"
+
+# Verificar processos que consomem CPU/Memória
+alias cpu="top -o cpu"
+alias mem="top -o rsize"
+
+# Mostrar/esconder arquivos ocultos no Finder
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+
+# Desenvolvimento React Native/Mobile:
+
+# React Native
+alias metro="npx react-native start"
+alias metro-reset="npx react-native start --reset-cache" 
+
+alias rn="npx react-native"
+alias rnios="npx react-native run-ios"
+alias rnandroid="npx react-native run-android"
+
+# Lista dispositivos conectados
+alias devices="adb devices"
+alias iosdevices="xcrun xctrace list devices"
+
+# Pod install com limpeza
+alias podreset="cd ios && pod deintegrate && pod install && cd .."
+alias podcleanforce="cd ios && pod deintegrate && pod cache clean --all && pod install && cd .."
+
+# Network/SSH:
+
+# Verificar portas em uso
+alias ports="lsof -i -P | grep -i 'listen'"
+
+# Limpar DNS Cache (macOS)
+alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder && echo cache flushed'
+
+# Testar conexão
+alias pingg="ping -c 5 google.com"
+
+# Produtividade:
+
+# Encurtar comando npm
+alias ni="npm install"
+alias ns="npm start"
+alias nd="npm run dev"
+alias nt="npm test"
+
+# Yarn
+alias y="yarn"
+alias yi="yarn install"
+alias ys="yarn start"
+alias yd="yarn dev"
+alias yt="yarn test"
+
+# PNPM
+alias pn="pnpm"
+alias pni="pnpm install"
+alias pns="pnpm start"
+alias pnd="pnpm dev"
+alias pnt="pnpm test"
 
 # Docker
 alias dps="docker ps"
 alias dimg="docker images"
 alias dcup="docker compose up"
 alias dcdown="docker compose down"
+alias dclogs="docker logs -f"
+alias dbash="docker exec -it"
 
-# React Native
-alias metro="npx react-native start"
-alias emulator="$ANDROID_SDK/emulator/emulator"
-alias androidemulator="emulator -avd Pixel_3a_API_30_x86"
+
+# Weather
+alias weather="curl --silent http://wttr.in/Jacarepaguá"
+# alias weather="curl --silent http://wttr.in/Barra%20da%20Tijuca"
+# alias weather="curl --silent http://wttr.in/Rio"
+
+

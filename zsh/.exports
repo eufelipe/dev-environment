@@ -4,10 +4,9 @@
 # EDITOR
 # ------------------------------------------------------------------------------
 export EDITOR="code --wait"
-export VISUAL="code --wait"
 
 # ------------------------------------------------------------------------------
-# HISTORICO 
+# HISTÓRICO 
 # ------------------------------------------------------------------------------
 
 export HISTCONTROL=ignoredups
@@ -65,7 +64,75 @@ export PATH="$GEM_HOME/bin:$PATH"
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 # ------------------------------------------------------------------------------
-# FLUTTER (opcional)
+# FLUTTER
 # ------------------------------------------------------------------------------
 # export FLUTTER_SDK="$HOME/flutter"
 # export PATH="$FLUTTER_SDK/bin:$PATH"
+
+
+# ------------------------------------------------------------------------------
+# Performance e Compilação
+# ------------------------------------------------------------------------------
+
+# Usar todos os cores da CPU para compilação
+export MAKEFLAGS="-j$(sysctl -n hw.ncpu)"
+
+# Melhorar performance do Homebrew
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+# Evitar mensagens de warning inutilizadas
+export HOMEBREW_NO_ENV_HINTS=1
+
+# Desenvolvimento
+
+# Definir diretório padrão de projetos
+export PROJECTS_DIR="$HOME/PROJETOS"
+
+# Configurações do NPM
+export NPM_CONFIG_PREFIX="$HOME/.npm-global"
+export PATH="$PATH:$NPM_CONFIG_PREFIX/bin"
+
+# Go
+#  export GOPATH="$HOME/go"
+#  export PATH="$PATH:$GOPATH/bin"
+
+# Gradle (para projetos Android maiores)
+export GRADLE_USER_HOME="$HOME/.gradle"
+export GRADLE_OPTS="-Xmx4096m -Dorg.gradle.daemon=true -Dorg.gradle.parallel=true -Dorg.gradle.configureondemand=true"
+
+# Ferramentas e Utilitários
+
+# Configuração do less
+export LESS="-R"
+export LESS_TERMCAP_mb=$'\E[1;31m'
+export LESS_TERMCAP_md=$'\E[1;36m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[1;32m'
+
+# Configuração de paginação do man
+export MANPAGER="less -X"
+
+# Usar Vim como paginador
+# export MANPAGER="vim -M +MANPAGER -"
+
+# Segurança e Criptografia
+
+# Definir o diretório do OpenSSL
+export OPENSSL_DIR="/usr/local/opt/openssl"
+export PATH="$OPENSSL_DIR/bin:$PATH"
+
+# Configurações do Docker
+export DOCKER_BUILDKIT=1
+export COMPOSE_DOCKER_CLI_BUILD=1
+
+# Opções da linha de comando (ZSH)
+
+# Auto-correção de comandos
+export ENABLE_CORRECTION="true"
+
+# Destacar comandos enquanto digita
+export HYPHEN_INSENSITIVE="true"
+

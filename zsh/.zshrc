@@ -31,14 +31,14 @@ source "$ZSH/oh-my-zsh.sh"
 DISABLE_AUTO_UPDATE="true"
 
 # ------------------------------------------------------------------------------
-# IMPORTA OUTROS ARQUIVOS (CASO EXISTAM)
+# IMPORTA OUTROS ARQUIVOS
 # ------------------------------------------------------------------------------
 [[ -f "$HOME/.exports"   ]] && source "$HOME/.exports"
 [[ -f "$HOME/.aliases"   ]] && source "$HOME/.aliases"
 [[ -f "$HOME/.functions" ]] && source "$HOME/.functions"
 
 # ------------------------------------------------------------------------------
-# Spaceship Prompt - Exemplo de Configuração
+# Spaceship Prompt
 # ------------------------------------------------------------------------------
 SPACESHIP_PROMPT_ORDER=(
   user

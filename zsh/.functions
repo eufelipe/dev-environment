@@ -1,3 +1,74 @@
+# Utilitários do Sistema
+
+# Procurar texto em arquivos recursivamente
+search() {
+  find . -type f -name "$1" -exec grep -l "$2" {} \;
+}
+
+# Mostrar tamanho de diretórios de forma legível
+dirsize() {
+  du -h --max-depth=1 "$@" | sort -hr
+}
+
+# Limpar arquivos .DS_Store recursivamente
+cleanup_ds_store() {
+  find . -name ".DS_Store" -type f -delete
+}
+
+# Fazer backup de um arquivo
+backup() {
+  cp "$1" "$1.bak.$(date +%Y%m%d_%H%M%S)"
+}
+
+#  Navegação
+
+# Navegar para cima múltiplos diretórios de uma vez
+up() {
+    local d=""
+    local limit=$1
+
+    # Valor padrão
+    [ -z "$limit" ] && limit=1
+
+    for ((i=1; i <= limit; i++)); do
+      d="$d../"
+    done
+
+    if [ -z "$d" ]; then
+      d=".."
+    fi
+
+    cd "$d" || return
+}
+
+# Mostra todos os caminhos no PATH de forma legível
+path() {
+  echo $PATH | tr ":" "\n"
+}
+
+#  Desenvolvimento Web/Mobile
+
+# Limpar cache do NPM
+npm_clean() {
+    npm cache clean --force
+    rm -rf node_modules
+    rm package-lock.json
+    npm install
+}
+
+
+# Abrir simulador do iOS
+ios_simulator() {
+  open -a Simulator
+}
+
+# Verificar se uma porta está em uso
+port_check() {
+  lsof -i :"$1"
+}
+
+# Produtividade
+
 # Cria um diretório e faz cd nele de uma vez só
 mkcd() {
   mkdir -p "$1"
@@ -50,5 +121,17 @@ killport() {
     lsof -t -i :"$1" | xargs kill -9
   fi
 }
+
+# GIT
+
+# Clonar um repositório e fazer fork dele
+fork() {
+  repo_name=$(echo "$1" | xargs basename | cut -d. -f1)
+  clone_path="$HOME/PROJETOS/CODE/forks/$repo_name"
+  echo "Seu fork será clonado para $clone_path"
+  git clone $1 "$clone_path"
+  cd $clone_path
+}
+
 
 
