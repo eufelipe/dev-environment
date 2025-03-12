@@ -1,137 +1,199 @@
-# Utilitários do Sistema
+# ------------------------------------------------------------------------------
+# UTILITÁRIOS DO SISTEMA
+# ------------------------------------------------------------------------------
 
-# Procurar texto em arquivos recursivamente
+# search: Procura recursivamente por um arquivo cujo nome corresponda ao primeiro argumento
+#         e, dentro dele, busca um texto passado como segundo argumento, listando os arquivos que contêm o padrão.
 search() {
+  # Executa find no diretório atual (.)
+  # -type f: procura somente arquivos
+  # -name "$1": filtra arquivos pelo nome informado como primeiro parâmetro
+  # -exec grep -l "$2" {} \;: para cada arquivo encontrado, usa grep para listar (-l) os que contêm o texto ($2)
   find . -type f -name "$1" -exec grep -l "$2" {} \;
 }
 
-# Mostrar tamanho de diretórios de forma legível
+# dirsize: Exibe o tamanho dos diretórios de forma legível.
 dirsize() {
+  # du -h: calcula o uso de disco em formato "human readable"
+  # --max-depth=1: limita a profundidade de listagem a 1 nível
+  # "$@": permite passar um ou mais diretórios como argumento
+  # sort -hr: ordena os resultados em ordem decrescente (h: human readable, r: reverso)
   du -h --max-depth=1 "$@" | sort -hr
 }
 
-# Limpar arquivos .DS_Store recursivamente
+# cleanup_ds_store: Remove recursivamente todos os arquivos .DS_Store.
 cleanup_ds_store() {
+  # find: busca arquivos com nome .DS_Store no diretório atual
+  # -type f: garante que são arquivos
+  # -delete: remove os arquivos encontrados
   find . -name ".DS_Store" -type f -delete
 }
 
-# Fazer backup de um arquivo
+# backup: Cria uma cópia de backup de um arquivo, anexando data e hora ao nome.
 backup() {
+  # cp: copia o arquivo ($1) para um novo nome, que inclui a data e hora atual (formato YYYYMMDD_HHMMSS)
   cp "$1" "$1.bak.$(date +%Y%m%d_%H%M%S)"
 }
 
-#  Navegação
+# ------------------------------------------------------------------------------
+# NAVEGAÇÃO
+# ------------------------------------------------------------------------------
 
-# Navegar para cima múltiplos diretórios de uma vez
+# up: Navega para cima na hierarquia de diretórios múltiplas vezes.
 up() {
+    # Inicializa a variável que irá acumular os "../"
     local d=""
+    # Define o limite (número de níveis) a partir do primeiro argumento
     local limit=$1
 
-    # Valor padrão
+    # Se nenhum argumento for passado, define o padrão como 1
     [ -z "$limit" ] && limit=1
 
+    # Loop para concatenar "../" conforme o número de níveis desejado
     for ((i=1; i <= limit; i++)); do
       d="$d../"
     done
 
+    # Se, por algum motivo, 'd' estiver vazia, define como um único nível para garantir
     if [ -z "$d" ]; then
       d=".."
     fi
 
+    # Muda para o diretório construído; se falhar, retorna sem erro
     cd "$d" || return
 }
 
-# Mostra todos os caminhos no PATH de forma legível
+# path: Exibe os caminhos do PATH em linhas separadas para melhor visualização.
 path() {
+  # Substitui os ":" por quebras de linha
   echo $PATH | tr ":" "\n"
 }
 
-#  Desenvolvimento Web/Mobile
+# ------------------------------------------------------------------------------
+# DESENVOLVIMENTO WEB/MOBILE
+# ------------------------------------------------------------------------------
 
-# Limpar cache do NPM
+# npm_clean: Limpa o cache do NPM, remove os diretórios e arquivos de dependências e reinstala tudo.
 npm_clean() {
+    # Limpa o cache do NPM forçando a operação
     npm cache clean --force
+    # Remove o diretório node_modules
     rm -rf node_modules
+    # Remove o arquivo de bloqueio de versões
     rm package-lock.json
+    # Reinstala as dependências definidas no package.json
     npm install
 }
 
+yarn_clean() {
+  yarn cache clean
+  rm -rf node_modules
+  rm yarn.lock
+  yarn install
+}
 
-# Abrir simulador do iOS
+# pnpm_clean: Limpa o cache do PNPM, remove os diretórios e arquivos de dependências e reinstala tudo.
+pnpm_clean() {
+  pnpm store prune
+  pnpm cache clean --all
+  pnpm install
+}
+
+# ios_simulator: Abre o simulador do iOS.
 ios_simulator() {
+  # Abre o aplicativo Simulator (padrão no macOS)
   open -a Simulator
 }
 
-# Verificar se uma porta está em uso
+# port_check: Verifica se uma determinada porta (passada como argumento) está em uso.
 port_check() {
+  # Usa lsof para listar processos que estão utilizando a porta especificada
   lsof -i :"$1"
 }
 
-# Produtividade
+# ------------------------------------------------------------------------------
+# PRODUTIVIDADE
+# ------------------------------------------------------------------------------
 
-# Cria um diretório e faz cd nele de uma vez só
+# mkcd: Cria um diretório e entra nele de uma só vez.
 mkcd() {
+  # Cria o diretório, incluindo quaisquer diretórios pai que não existam (-p)
   mkdir -p "$1"
+  # Entra no diretório criado; se falhar, encerra o script com exit
   cd "$1" || exit
 }
 
-# Extrai vários tipos de arquivo (zip, tar, etc.) automaticamente
+# extract: Extrai automaticamente arquivos compactados de diversos formatos.
 extract() {
+  # Verifica se o primeiro argumento é um arquivo existente
   if [ -f "$1" ] ; then
+    # Seleciona a ação de extração com base na extensão do arquivo
     case "$1" in
-      *.tar.bz2)   tar xjf "$1"   ;;
-      *.tar.gz)    tar xzf "$1"   ;;
-      *.bz2)       bunzip2 "$1"   ;;
-      *.rar)       unrar x "$1"   ;;
-      *.gz)        gunzip "$1"    ;;
-      *.tar)       tar xf "$1"    ;;
-      *.tbz2)      tar xjf "$1"   ;;
-      *.tgz)       tar xzf "$1"   ;;
-      *.zip)       unzip "$1"     ;;
-      *.Z)         uncompress "$1";;
-      *.7z)        7z x "$1"      ;;
-      *)           echo "'$1' não pode ser extraído via extract()" ;;
+      *.tar.bz2)   tar xjf "$1"   ;;  # Extrai arquivos tar.bz2
+      *.tar.gz)    tar xzf "$1"   ;;  # Extrai arquivos tar.gz
+      *.bz2)       bunzip2 "$1"   ;;  # Descompacta arquivos bz2
+      *.rar)       unrar x "$1"   ;;  # Extrai arquivos rar
+      *.gz)        gunzip "$1"    ;;  # Descompacta arquivos gz
+      *.tar)       tar xf "$1"    ;;  # Extrai arquivos tar
+      *.tbz2)      tar xjf "$1"   ;;  # Extrai arquivos tar.bz2 (variação)
+      *.tgz)       tar xzf "$1"   ;;  # Extrai arquivos tgz
+      *.zip)       unzip "$1"     ;;  # Extrai arquivos zip
+      *.Z)         uncompress "$1";;  # Descompacta arquivos Z
+      *.7z)        7z x "$1"      ;;  # Extrai arquivos 7z
+      *)           echo "'$1' não pode ser extraído via extract()" ;;  # Caso não reconheça o formato
     esac
   else
+    # Se o arquivo não existir ou não for válido, exibe uma mensagem de erro
     echo "'$1' não é um arquivo válido"
   fi
 }
 
-# Sincronizar repositório rápido:
+# gsync: Sincroniza rapidamente um repositório Git.
 gsync() {
+  # Atualiza o repositório com pull rebase para integrar as mudanças
   git pull --rebase
+  # Envia as mudanças locais para o repositório remoto
   git push
 }
 
-# Puxa atualizações de todos os repositórios dentro de uma pasta:
+# gpullall: Atualiza (faz pull) de todos os repositórios Git dentro de um diretório.
 gpullall() {
+  # Itera por cada subdiretório
   for dir in */; do
+    # Verifica se o diretório contém um repositório Git (existe a pasta .git)
     if [ -d "$dir/.git" ]; then
       echo "Atualizando $dir"
+      # Entra no diretório, executa pull rebase e retorna ao diretório original
       (cd "$dir" && git pull --rebase)
     fi
   done
 }
 
-# Mata um processo pela porta:
+# killport: Mata o processo que está usando a porta especificada.
 killport() {
+  # Verifica se o usuário passou o número da porta
   if [ -z "$1" ]; then
     echo "Uso: killport <porta>"
   else
+    # Encontra o PID do processo usando a porta e o mata com sinal 9 (force kill)
     lsof -t -i :"$1" | xargs kill -9
   fi
 }
 
+# ------------------------------------------------------------------------------
 # GIT
+# ------------------------------------------------------------------------------
 
-# Clonar um repositório e fazer fork dele
+# fork: Clona um repositório e o coloca em um diretório destinado a forks.
 fork() {
+  # Extrai o nome do repositório a partir da URL fornecida (remove caminho e extensão)
   repo_name=$(echo "$1" | xargs basename | cut -d. -f1)
+  # Define o caminho onde o fork será clonado
   clone_path="$HOME/PROJETOS/CODE/forks/$repo_name"
+  # Informa ao usuário onde o fork será clonado
   echo "Seu fork será clonado para $clone_path"
+  # Clona o repositório para o diretório definido
   git clone $1 "$clone_path"
+  # Entra no diretório clonado
   cd $clone_path
 }
-
-
-

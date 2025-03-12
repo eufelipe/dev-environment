@@ -1,136 +1,135 @@
 # ------------------------------------------------------------------------------
-# ALIASES
+# ALIASES: Definições de atalhos para facilitar comandos frequentes no terminal.
 # ------------------------------------------------------------------------------
 
-alias zshconfig="nano -o ~/.zshrc && source ~/.zshrc"
-alias ohmyzsh="nano ~/.oh-my-zsh"
-alias sshconfig='nano ~/.ssh/config'
-alias aliasconfig='nano ~/.aliases && source ~/.aliases'
-alias exportsconfig='nano ~/.exports && source ~/.exports'
-alias functionsconfig='nano ~/.functions && source ~/.functions'
-alias hostsconfig='sudo nano /etc/hosts'
-alias gitconfig="nano ~/.gitconfig"
+# Configurações do Zsh
+alias zshconfig="nano -o ~/.zshrc && source ~/.zshrc"  # Abre o arquivo .zshrc no nano para edição e recarrega o shell após salvar.
+alias ohmyzsh="nano ~/.oh-my-zsh"                        # Abre o diretório (ou arquivo) de configuração do oh-my-zsh no nano.
+alias sshconfig='nano ~/.ssh/config'                    # Abre o arquivo de configuração do SSH.
+alias aliasconfig='nano ~/.aliases && source ~/.aliases'  # Abre o arquivo de aliases para edição e recarrega suas definições.
+alias exportsconfig='nano ~/.exports && source ~/.exports'  # Abre o arquivo de exports e recarrega suas variáveis.
+alias functionsconfig='nano ~/.functions && source ~/.functions'  # Abre o arquivo de funções customizadas e recarrega-as.
+alias hostsconfig='sudo nano /etc/hosts'                # Abre o arquivo /etc/hosts com privilégios de superusuário para edição.
+alias gitconfig="nano ~/.gitconfig"                     # Abre o arquivo de configuração do Git para edição.
 
-alias c="clear"
-alias l="ls -lah"
-alias l1="l -1"
-alias ll="l -l"
-alias ls="ls -G"
-alias ln="ln -v"
-alias mkdir="mkdir -p"
-alias less='less -r'
-alias top="sudo htop"
+# Comandos Gerais
+alias c="clear"                                       # Limpa o terminal.
+alias l="ls -lah"                                     # Lista arquivos com detalhes, incluindo arquivos ocultos.
+alias l1="l -1"                                       # Lista arquivos com uma entrada por linha.
+alias ll="l -l"                                       # Lista arquivos em formato longo (detalhado).
+alias ls="ls -G"                                      # Lista arquivos com cores (opção específica do macOS).
+alias ln="ln -v"                                      # Cria links (hard ou simbólicos) com saída verbosa.
+alias mkdir="mkdir -p"                                # Cria diretórios, incluindo os pais se necessário.
+alias less='less -r'                                  # Abre arquivos com o less, preservando cores e formatação.
+alias top="sudo htop"                                 # Inicia o htop com privilégios de superusuário para monitoramento de processos.
 
-# Usar a lib safe-rm como 'rm' (sem perguntar para confirmar)
-alias rm='safe-rm'
+# Substituir o rm padrão pelo safe-rm
+alias rm='safe-rm'                                    # Utiliza a ferramenta safe-rm para evitar remoções acidentais sem confirmação.
 
-# Navegação
-alias ..="cd .."
-alias ...="cd ../.."
-alias ~="cd ~"
+# Navegação entre diretórios
+alias ..="cd .."                                     # Sobe um nível na hierarquia de diretórios.
+alias ...="cd ../.."                                 # Sobe dois níveis na hierarquia de diretórios.
+alias ~="cd ~"                                       # Vai para o diretório home do usuário.
+alias home="cd ~"                                    # Outro atalho para acessar o diretório home.
+alias dev="cd ~/PROJETOS"                             # Acessa o diretório de projetos (~/PROJETOS).
+alias docs="cd ~/Documents"                           # Abre o diretório de Documentos.
+alias downloads="cd ~/Downloads"                      # Abre o diretório de Downloads.
 
-alias home="cd ~"
-alias dev="cd ~/PROJETOS"
-alias docs="cd ~/Documents"
-alias downloads="cd ~/Downloads"
+# Abrir a pasta atual no Finder (macOS)
+alias folder="open ."                                # Abre o diretório atual no Finder.
 
-# Abrir pasta atual no Finder
-alias folder="open ."
+# Limpeza e manutenção de arquivos temporários
+alias clear-derived-data="rm -rf ~/Library/Developer/Xcode/DerivedData/*"  # Remove dados derivados do Xcode para limpar builds antigos.
+alias clear-cache="rm -rf ~/Library/Caches/*"         # Limpa o cache do usuário para liberar espaço e resolver problemas.
 
-# Limpeza 
-alias clear-derived-data="rm -rf ~/Library/Developer/Xcode/DerivedData/*"
-alias clear-cache="rm -rf ~/Library/Caches/*"
+# Sistema e Utilitários
 
-# Sistema/Utilitários: 
+# Exibir endereço IP (exceto localhost)
+alias ip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print \$2}'"  # Mostra o endereço IP da máquina, filtrando o localhost.
 
-# IP
-alias ip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print $2}'"
+# Encerrar processos
+alias kill-process="kill -9 \$(pgrep -f)"             # Mata processos que correspondam a um padrão utilizando pgrep e kill -9.
 
-# Processos
-alias kill-process="kill -9 \$(pgrep -f)"
+# Realçar resultados do grep com cores
+alias grep="grep --color=auto"                        # Executa o grep com destaque de cores nos resultados.
 
-# Grep
-alias grep="grep --color=auto"
+# Reexecutar o último comando com sudo
+alias please="sudo !!"                                # Reexecuta o comando anterior com privilégios de superusuário (útil quando esquece de usar sudo).
 
-# Please sudo
-alias please="sudo !!" 
+# Atualização do sistema (macOS via Homebrew)
+alias update="brew update && brew upgrade"            # Atualiza as fórmulas do Homebrew e realiza upgrade dos pacotes instalados.
+alias cleanup="brew cleanup"                          # Remove arquivos antigos e desnecessários do Homebrew.
 
-# Atualizar sistema (macOS)
-alias update="brew update && brew upgrade"
-alias cleanup="brew cleanup"
+# Monitoramento de recursos do sistema
+alias cpu="top -o cpu"                                # Exibe processos ordenados pelo uso de CPU.
+alias mem="top -o rsize"                              # Exibe processos ordenados pelo uso de memória (tamanho residente).
 
-# Verificar processos que consomem CPU/Memória
-alias cpu="top -o cpu"
-alias mem="top -o rsize"
+# Mostrar ou esconder arquivos ocultos no Finder
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"  # Configura o Finder para exibir arquivos ocultos e reinicia o Finder.
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder" # Configura o Finder para ocultar arquivos ocultos e reinicia o Finder.
 
-# Mostrar/esconder arquivos ocultos no Finder
-alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+# Desenvolvimento React Native/Mobile
 
+# Iniciar o servidor Metro do React Native
+alias metro="npx react-native start"                  # Inicia o bundler Metro para projetos React Native.
+alias metro-reset="npx react-native start --reset-cache"  # Inicia o Metro e limpa o cache, útil para resolver problemas de build.
 
-# Desenvolvimento React Native/Mobile:
+# Atalhos para comandos do React Native
+alias rn="npx react-native"                           # Atalho geral para comandos do React Native via npx.
+alias rnios="npx react-native run-ios"                # Compila e executa o aplicativo em ambiente iOS.
+alias rnandroid="npx react-native run-android"        # Compila e executa o aplicativo em ambiente Android.
 
-# React Native
-alias metro="npx react-native start"
-alias metro-reset="npx react-native start --reset-cache" 
+# Listar dispositivos conectados
+alias devices="adb devices"                           # Lista os dispositivos Android conectados via adb.
+alias iosdevices="xcrun xctrace list devices"         # Lista os dispositivos iOS disponíveis.
 
-alias rn="npx react-native"
-alias rnios="npx react-native run-ios"
-alias rnandroid="npx react-native run-android"
+# Reinstalar pods no diretório iOS (React Native)
+alias podreset="cd ios && pod deintegrate && pod install && cd .."  # Remove integrações antigas do CocoaPods e reinstala os pods.
+alias podcleanforce="cd ios && pod deintegrate && pod cache clean --all && pod install && cd .."  # Força a limpeza do cache dos pods, remove integrações e reinstala.
 
-# Lista dispositivos conectados
-alias devices="adb devices"
-alias iosdevices="xcrun xctrace list devices"
+# Network e SSH
 
-# Pod install com limpeza
-alias podreset="cd ios && pod deintegrate && pod install && cd .."
-alias podcleanforce="cd ios && pod deintegrate && pod cache clean --all && pod install && cd .."
+# Verificar portas em uso no sistema
+alias ports="lsof -i -P | grep -i 'listen'"         # Lista processos que estão escutando em portas, útil para identificar conflitos.
 
-# Network/SSH:
+# Limpar o cache de DNS no macOS
+alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder && echo cache flushed'  # Limpa o cache DNS e reinicia o serviço mDNSResponder, confirmando a ação.
 
-# Verificar portas em uso
-alias ports="lsof -i -P | grep -i 'listen'"
+# Testar conexão com a internet
+alias pingg="ping -c 5 google.com"                    # Envia 5 pacotes de ping para google.com para verificar conectividade.
 
-# Limpar DNS Cache (macOS)
-alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder && echo cache flushed'
+# Produtividade: Atalhos para npm, Yarn e PNPM
 
-# Testar conexão
-alias pingg="ping -c 5 google.com"
+# Comandos npm abreviados
+alias ni="npm install"                               # Atalho para instalar pacotes com npm.
+alias ns="npm start"                                 # Atalho para iniciar a aplicação via npm.
+alias nd="npm run dev"                               # Atalho para executar o script de desenvolvimento definido no package.json.
+alias nt="npm test"                                  # Atalho para rodar os testes com npm.
 
-# Produtividade:
+# Comandos Yarn abreviados
+alias y="yarn"                                       # Atalho para executar comandos do Yarn.
+alias yi="yarn install"                              # Atalho para instalar dependências com Yarn.
+alias ys="yarn start"                                # Atalho para iniciar a aplicação via Yarn.
+alias yd="yarn dev"                                  # Atalho para executar o ambiente de desenvolvimento com Yarn.
+alias yt="yarn test"                                 # Atalho para rodar testes com Yarn.
 
-# Encurtar comando npm
-alias ni="npm install"
-alias ns="npm start"
-alias nd="npm run dev"
-alias nt="npm test"
-
-# Yarn
-alias y="yarn"
-alias yi="yarn install"
-alias ys="yarn start"
-alias yd="yarn dev"
-alias yt="yarn test"
-
-# PNPM
-alias pn="pnpm"
-alias pni="pnpm install"
-alias pns="pnpm start"
-alias pnd="pnpm dev"
-alias pnt="pnpm test"
+# Comandos PNPM abreviados
+alias pn="pnpm"                                      # Atalho para executar comandos do PNPM.
+alias pni="pnpm install"                             # Atalho para instalar dependências com PNPM.
+alias pns="pnpm start"                               # Atalho para iniciar a aplicação via PNPM.
+alias pnd="pnpm dev"                                 # Atalho para executar o ambiente de desenvolvimento com PNPM.
+alias pnt="pnpm test"                                # Atalho para rodar os testes com PNPM.
 
 # Docker
-alias dps="docker ps"
-alias dimg="docker images"
-alias dcup="docker compose up"
-alias dcdown="docker compose down"
-alias dclogs="docker logs -f"
-alias dbash="docker exec -it"
+alias dps="docker ps"                                # Lista os containers Docker em execução.
+alias dimg="docker images"                           # Lista as imagens Docker disponíveis localmente.
+alias dcup="docker compose up"                       # Inicia os serviços definidos no docker-compose.
+alias dcdown="docker compose down"                   # Para e remove os containers criados pelo docker-compose.
+alias dclogs="docker logs -f"                        # Exibe os logs de um container Docker em tempo real.
+alias dbash="docker exec -it"                        # Permite acessar um shell interativo dentro de um container Docker.
 
-
-# Weather
-alias weather="curl --silent http://wttr.in/Jacarepaguá"
+# Weather (Previsão do Tempo)
+alias weather="curl --silent http://wttr.in/Jacarepaguá"  # Exibe a previsão do tempo para Jacarepaguá de forma silenciosa.
+# As linhas abaixo são alternativas para outras localidades:
 # alias weather="curl --silent http://wttr.in/Barra%20da%20Tijuca"
 # alias weather="curl --silent http://wttr.in/Rio"
-
-
