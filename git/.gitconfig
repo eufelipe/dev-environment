@@ -83,7 +83,10 @@
   # ---------------------------------------------------------------------------
 
   # cria um stash com a mensagem “SAVEPOINT: {texto}” e inclui arquivos não rastreados (`-u`)
-  savepoint = "!f() { git stash save -u \"SAVEPOINT: $@\"; }; f"
+  savepoint = "!f() { \
+        git stash push -u -m \"SAVEPOINT: $@\" && \
+        git stash apply stash@{0}; \
+  }; f"
 
   # salva o stash com uma mensagem, incluindo arquivos não monitorados (-u)
   ss = "!f() { git stash save -u \"$@\"; }; f"
