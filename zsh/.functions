@@ -73,6 +73,48 @@ path() {
 # DESENVOLVIMENTO WEB/MOBILE
 # ------------------------------------------------------------------------------
 
+apocalipse() {
+  echo "💀 Iniciando o Apocalipse do projeto..."
+
+  echo "🧹 Removendo node_modules e arquivos de lock..."
+  rm -rf node_modules package-lock.json yarn.lock pnpm-lock.yaml
+
+  echo "🧼 Limpando caches..."
+  command -v npm >/dev/null && npm cache clean --force
+  command -v yarn >/dev/null && yarn cache clean
+  command -v pnpm >/dev/null && pnpm store prune
+
+  echo "📦 Instalando dependências novamente..."
+  if [ -f pnpm-lock.yaml ]; then
+    pnpm install
+  elif [ -f yarn.lock ]; then
+    yarn install
+  else
+    npm install
+  fi
+
+  if [ -d ios ]; then
+    echo "🍏 Limpando Pods..."
+    cd ios
+    rm -rf Pods Podfile.lock
+    pod cache clean --all
+    pod install
+    cd ..
+  fi
+
+  if [ -d ~/Library/Developer/Xcode/DerivedData ]; then
+    echo "🧠 Limpando DerivedData..."
+    rm -rf ~/Library/Developer/Xcode/DerivedData/*
+  fi
+
+  command -v watchman >/dev/null && watchman watch-del-all
+
+  echo "✅ Apocalipse finalizado. Projeto limpo e purificado com sucesso."
+}
+
+
+
+
 # npm_clean: Limpa o cache do NPM, remove os diretórios e arquivos de dependências e reinstala tudo.
 npm_clean() {
     # Limpa o cache do NPM forçando a operação
