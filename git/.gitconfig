@@ -47,6 +47,10 @@
   # faz checkout do commit anterior (`HEAD^1`).
   prev = checkout HEAD^1
 
+
+  # lista branches ordenados pela data de commit.
+  recent = !git fetch --all --prune && git branch -vv --sort=-committerdate  
+
   # ---------------------------------------------------------------------------
   # ALIASES DE COMMIT
   # ---------------------------------------------------------------------------
@@ -74,6 +78,12 @@
   chore = "!f() { git commit -m \"chore: $@\"; }; f"
   fix  = "!f() { git commit -m \"fix: $@\"; }; f"
   doc  = "!f() { git commit -m \"docs: $@\"; }; f"
+  refactor = "!f() { git commit -m \"refactor: $@\"; }; f"
+  perf = "!f() { git commit -m \"perf: $@\"; }; f"
+  test = "!f() { git commit -m \"test: $@\"; }; f"
+  build = "!f() { git commit -m \"build: $@\"; }; f"
+  ci = "!f() { git commit -m \"ci: $@\"; }; f" 
+  
 
   # Permite rodar `commitizen` após adicionar as mudanças, para gerar commits no padrão conventional (prompt interativo).
   cz = "commitizen"
