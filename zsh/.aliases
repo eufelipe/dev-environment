@@ -24,7 +24,7 @@ alias less='less -r'                                  # Abre arquivos com o less
 alias top="sudo htop"                                 # Inicia o htop com privilégios de superusuário para monitoramento de processos.
 
 # Substituir o rm padrão pelo safe-rm
-alias rm='safe-rm'                                    # Utiliza a ferramenta safe-rm para evitar remoções acidentais sem confirmação.
+alias rm='safe-rm -rf'                                    # Utiliza a ferramenta safe-rm para evitar remoções acidentais sem confirmação.
 
 # Navegação entre diretórios
 alias ..="cd .."                                     # Sobe um nível na hierarquia de diretórios.
@@ -104,7 +104,6 @@ alias pingg="ping -c 5 google.com"                    # Envia 5 pacotes de ping 
 alias ni="npm install"                               # Atalho para instalar pacotes com npm.
 alias ns="npm start"                                 # Atalho para iniciar a aplicação via npm.
 alias nd="npm run dev"                               # Atalho para executar o script de desenvolvimento definido no package.json.
-alias nt="npm test"                                  # Atalho para rodar os testes com npm.
 
 # Comandos Yarn abreviados
 alias y="yarn"                                       # Atalho para executar comandos do Yarn.
