@@ -1,0 +1,26 @@
+# ~/.config/starship.toml — prompt (gerenciado por chezmoi)
+# Leve e rápido (Rust). Substitui Oh My Zsh + Spaceship do setup antigo.
+
+add_newline = false
+
+[character]
+success_symbol = "[❯](green)"
+error_symbol = "[❯](red)"
+
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+
+[git_branch]
+symbol = " "
+
+[git_status]
+style = "yellow"
+
+[nodejs]
+format = "[$symbol($version )]($style)"
+symbol = " "
+
+[cmd_duration]
+min_time = 2000
+format = "[$duration]($style) "

@@ -1,0 +1,35 @@
+# ~/.exports — gerenciado por chezmoi
+# Sem cruft Intel: nada de /usr/local, nvm, pyenv, rbenv (mise cuida dos runtimes).
+
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export PROJECTS_DIR="$HOME/Projects"
+
+export HISTCONTROL=ignoredups
+
+# Android SDK (React Native)
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
+# JAVA_HOME é gerenciado pelo mise — NÃO setar aqui (evita brigar com o Gradle JDK).
+
+# Docker / OrbStack
+export DOCKER_BUILDKIT=1
+export COMPOSE_DOCKER_CLI_BUILD=1
+
+# Gradle (projetos Android maiores)
+export GRADLE_USER_HOME="$HOME/.gradle"
+export GRADLE_OPTS="-Xmx4096m -Dorg.gradle.daemon=true -Dorg.gradle.parallel=true -Dorg.gradle.configureondemand=true"
+
+# Homebrew
+export HOMEBREW_NO_ENV_HINTS=1
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+# 1Password CLI
+export OP_PREFER_IPV4=1
+
+# less colorido
+export LESS="-R"
+
+# Usar todos os cores na compilação
+export MAKEFLAGS="-j$(sysctl -n hw.ncpu 2>/dev/null || echo 4)"

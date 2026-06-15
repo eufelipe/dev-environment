@@ -1,0 +1,63 @@
+# ~/.gitconfig — gerenciado por chezmoi
+# CORREÇÃO vs Intel: identidade GLOBAL agora é a pessoal. O e-mail de trabalho
+# entra só via includeIf no diretório de trabalho (antes estava invertido).
+
+[user]
+	name = Felipe Rosas
+	email = contato@eufelipe.com
+	signingkey = ~/.ssh/id_ed25519.pub
+
+[commit]
+	gpgsign = true
+
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/allowed_signers
+
+[core]
+	editor = cursor --wait
+	excludesfile = ~/.gitignore_global
+
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
+[push]
+	autoSetupRemote = true
+[merge]
+	conflictstyle = zdiff3
+[rerere]
+	enabled = true
+[diff]
+	tool = cursor
+[difftool "cursor"]
+	cmd = cursor --wait --diff "$LOCAL" "$REMOTE"
+[credential]
+	helper = osxkeychain
+
+[alias]
+	co = checkout
+	cob = checkout -b
+	st = status -sb
+	lg = log --all --graph --decorate --oneline --abbrev-commit
+	cm = commit -m
+	ac = !git add -A && git commit
+	save = !git add -A && git commit -m 'SAVEPOINT'
+	wip = !git add -u && git commit -m 'WIP'
+	amend = commit -a --amend
+	undo = reset HEAD~1 --mixed
+	pf = push --force-with-lease
+	recent = !git fetch --all --prune && git branch -vv --sort=-committerdate
+	up = !git pull --rebase --prune && git submodule update --init --recursive
+	bclean = "!f() { git branch --merged ${1-main} | grep -v \" ${1-main}$\" | xargs git branch -d; }; f"
+	bdone = "!f() { git checkout ${1-main} && git up && git bclean ${1-main}; }; f"
+	conflicts = "!git status --porcelain | grep '^UU' || echo 'No conflicts'"
+
+# E-mail de trabalho só no diretório de trabalho. Crie ~/.gitconfig-work com:
+#   [user]
+#     email = voce@empresa.com
+[includeIf "gitdir:~/Projects/work/**"]
+	path = ~/.gitconfig-work

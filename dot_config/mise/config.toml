@@ -1,0 +1,12 @@
+# ~/.config/mise/config.toml — runtimes globais (gerenciado por chezmoi)
+# Por projeto, use um .mise.toml em CODE/<repo> (não na raiz do projeto).
+
+[tools]
+node = "lts"
+ruby = "3.3"          # CocoaPods / fastlane
+python = "3.12"       # POCs, scripts
+java = "temurin-17"   # builds Android / Gradle (RN)
+
+[settings]
+# Corepack cuida do pnpm/yarn (não o mise). Aqui só runtimes.
+experimental = true

@@ -1,0 +1,39 @@
+# ~/.zshrc — gerenciado por chezmoi (eufelipe/dev-environment)
+# Mac Apple Silicon (M5). Guardas com `command -v` deixam o arquivo portável
+# (não quebra numa máquina onde mise/starship/zoxide ainda não estão instalados).
+
+export EDITOR="cursor --wait"
+export VISUAL="cursor --wait"
+
+# Homebrew (Apple Silicon → /opt/homebrew)
+[ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# mise — runtimes (node, ruby, python, java) + tasks
+command -v mise >/dev/null && eval "$(mise activate zsh)"
+
+# zoxide — cd inteligente (z <pasta>)
+command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
+
+# fzf — busca fuzzy
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Starship — prompt
+command -v starship >/dev/null && eval "$(starship init zsh)"
+
+# zsh plugins (via Homebrew)
+BREW_PREFIX="$(brew --prefix 2>/dev/null)"
+[ -f "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && \
+  source "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+[ -f "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && \
+  source "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+# Histórico
+HISTSIZE=50000
+SAVEHIST=50000
+setopt HIST_IGNORE_ALL_DUPS INC_APPEND_HISTORY SHARE_HISTORY
+
+# Arquivos auxiliares
+[ -f ~/.exports ]     && source ~/.exports
+[ -f ~/.aliases ]     && source ~/.aliases
+[ -f ~/.functions ]   && source ~/.functions
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local   # ajustes por máquina, fora do git

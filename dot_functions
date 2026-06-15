@@ -1,0 +1,104 @@
+# ~/.functions — gerenciado por chezmoi
+# Portadas do setup antigo, com `rm` destrutivo trocado por `trash` onde fazia sentido.
+
+# ---- Navegação / arquivos ----
+
+# mkcd: cria diretório (com pais) e entra nele.
+mkcd() { mkdir -p "$1" && cd "$1" || return; }
+
+# up: sobe N níveis (`up 3`).
+up() {
+  local d="" limit="${1:-1}"
+  for ((i=1; i<=limit; i++)); do d="../$d"; done
+  cd "$d" || return
+}
+
+# path: mostra o PATH, uma entrada por linha.
+path() { echo "$PATH" | tr ':' '\n'; }
+
+# dirsize: tamanho dos diretórios, do maior pro menor.
+dirsize() { du -h -d 1 "$@" | sort -hr; }
+
+# extract: extrai qualquer formato comum.
+extract() {
+  [ -f "$1" ] || { echo "'$1' não é um arquivo válido"; return 1; }
+  case "$1" in
+    *.tar.bz2|*.tbz2) tar xjf "$1" ;;
+    *.tar.gz|*.tgz)   tar xzf "$1" ;;
+    *.tar)            tar xf  "$1" ;;
+    *.bz2)            bunzip2 "$1" ;;
+    *.gz)             gunzip  "$1" ;;
+    *.zip)            unzip   "$1" ;;
+    *.rar)            unrar x "$1" ;;
+    *.7z)             7z x    "$1" ;;
+    *.Z)              uncompress "$1" ;;
+    *) echo "'$1' não pode ser extraído via extract()" ;;
+  esac
+}
+
+# backup: cópia com timestamp.
+backup() { cp "$1" "$1.bak.$(date +%Y%m%d_%H%M%S)"; }
+
+# search: acha arquivos por nome ($1) que contenham texto ($2).
+search() { find . -type f -name "$1" -exec grep -l "$2" {} \;; }
+
+# cleanup_ds_store: remove .DS_Store recursivamente.
+cleanup_ds_store() { find . -name ".DS_Store" -type f -delete; }
+
+# ---- Rede / portas ----
+
+# killport: mata o processo na porta.
+killport() {
+  [ -z "$1" ] && { echo "Uso: killport <porta>"; return 1; }
+  lsof -ti :"$1" | xargs kill -9
+}
+
+# port_check: o que está usando a porta.
+port_check() { lsof -i :"$1"; }
+
+# ---- Git ----
+
+# gsync: pull --rebase + push.
+gsync() { git pull --rebase && git push; }
+
+# gpullall: pull --rebase em todos os repos de subpastas.
+gpullall() {
+  for dir in */; do
+    [ -d "$dir/.git" ] && (echo "→ $dir" && cd "$dir" && git pull --rebase)
+  done
+}
+
+# fork: clona um repo em ~/Projects/forks/<nome>.
+fork() {
+  local repo_name; repo_name=$(basename "$1" .git)
+  local clone_path="$HOME/Projects/forks/$repo_name"
+  echo "Clonando em $clone_path"
+  git clone "$1" "$clone_path" && cd "$clone_path" || return
+}
+
+# ---- React Native ----
+
+# ios_simulator: abre o Simulator.
+ios_simulator() { open -a Simulator; }
+
+# apocalipse: limpeza total de um projeto RN (node_modules, caches, Pods, DerivedData).
+apocalipse() {
+  echo "💀 Apocalipse: limpando o projeto..."
+  trash node_modules package-lock.json yarn.lock pnpm-lock.yaml 2>/dev/null
+  command -v npm  >/dev/null && npm cache clean --force 2>/dev/null
+  command -v yarn >/dev/null && yarn cache clean 2>/dev/null
+  command -v pnpm >/dev/null && pnpm store prune 2>/dev/null
+
+  if   [ -f pnpm-lock.yaml ]; then pnpm install
+  elif [ -f yarn.lock ];      then yarn install
+  else npm install; fi
+
+  if [ -d ios ]; then
+    echo "🍏 Pods..."
+    (cd ios && trash Pods Podfile.lock 2>/dev/null; pod install)
+  fi
+
+  [ -d ~/Library/Developer/Xcode/DerivedData ] && trash ~/Library/Developer/Xcode/DerivedData/* 2>/dev/null
+  command -v watchman >/dev/null && watchman watch-del-all 2>/dev/null
+  echo "✅ Projeto limpo."
+}

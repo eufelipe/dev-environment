@@ -1,0 +1,93 @@
+# ~/.aliases — gerenciado por chezmoi
+# Mudanças vs Intel: rm NÃO é mais aliasado (era 'safe-rm -rf'); use `del`/`trash`.
+# Editor de configs é o cursor (era nano/code). ls/cat/grep modernizados (eza/bat).
+
+# ---- Configs ----
+alias zshconfig='cursor ~/.zshrc'
+alias aliasconfig='cursor ~/.aliases'
+alias exportsconfig='cursor ~/.exports'
+alias functionsconfig='cursor ~/.functions'
+alias gitconfig='cursor ~/.gitconfig'
+alias sshconfig='cursor ~/.ssh/config'
+alias reload='source ~/.zshrc'
+
+# ---- Geral ----
+alias c='clear'
+alias l='eza -lah --git'
+alias ll='eza -lah --git'
+alias ls='eza'
+alias cat='bat'
+alias mkdir='mkdir -p'
+alias grep='grep --color=auto'
+alias please='sudo !!'
+
+# ---- Apagar com segurança (rm continua sendo rm de verdade) ----
+alias del='trash'                       # vai pra Lixeira (reversível)
+# Deleção destrutiva real é explícita: /bin/rm -rf
+
+# ---- Navegação ----
+alias ..='cd ..'
+alias ...='cd ../..'
+alias home='cd ~'
+alias dev='cd ~/Projects'
+alias downloads='cd ~/Downloads'
+alias folder='open .'                   # abre a pasta atual no Finder
+
+# Atalhos de projeto são por máquina — defina em ~/.zshrc.local (fora do git).
+
+# ---- Finder: mostrar/esconder ocultos ----
+alias show='defaults write com.apple.finder AppleShowAllFiles -bool true  && killall Finder'
+alias hide='defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder'
+
+# ---- Sistema / rede ----
+alias localip='ipconfig getifaddr en0'
+alias ip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print \$2}'"
+alias ports='lsof -i -P -n | grep LISTEN'
+alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder && echo flushed'
+alias pingg='ping -c 5 google.com'
+alias cpu='top -o cpu'
+alias mem='top -o rsize'
+alias update='brew update && brew upgrade'
+alias cleanup='brew cleanup'
+
+# ---- Git ----
+alias gs='git status -sb'
+alias lg='lazygit'
+
+# ---- Pacotes (pnpm preferido) ----
+alias pn='pnpm'
+alias pni='pnpm install'
+alias pnd='pnpm dev'
+alias pnt='pnpm test'
+alias y='yarn'
+alias ni='npm install'
+alias nd='npm run dev'
+
+# ---- React Native / mobile ----
+alias metro='npx react-native start'
+alias metro-reset='npx react-native start --reset-cache'
+alias rn='npx react-native'
+alias rnios='npx react-native run-ios'
+alias rnandroid='npx react-native run-android'
+alias devices='adb devices'
+alias iosdevices='xcrun xctrace list devices'
+alias podreset='cd ios && pod deintegrate && pod install && cd ..'
+alias derived='trash ~/Library/Developer/Xcode/DerivedData/*'
+
+# ---- Docker ----
+alias dps='docker ps'
+alias dimg='docker images'
+alias dcup='docker compose up -d'
+alias dcdown='docker compose down'
+alias dclogs='docker compose logs -f'
+alias dbash='docker exec -it'
+
+# ---- IA ----
+alias tm='task-master'
+# claude-safe: sandbox no host via agent-safehouse (instale: github.com/eugene1g/agent-safehouse)
+command -v safehouse >/dev/null && alias claude-safe='safehouse claude'
+command -v safehouse >/dev/null && alias claude-safe-skip='safehouse claude --dangerously-skip-permissions'
+
+# ---- Útils ----
+alias ytaudio='yt-dlp -x --audio-format mp3'
+alias weather='curl --silent http://wttr.in/Rio'
