@@ -3,8 +3,7 @@
 # Regra: só entra aqui o que você abre/roda hoje. Sugestão não-adotada fica no menu.
 # Instala com:  brew bundle --file=~/Projects/dev-environment/Brewfile
 # Java vem do mise; CocoaPods via Bundler por projeto.
-
-tap "homebrew/bundle"
+# (brew bundle é nativo do Homebrew — não precisa de tap.)
 
 # ---- CLIs: core ----
 brew "git"
@@ -52,11 +51,9 @@ brew "fastlane"
 brew "gitleaks"
 brew "semgrep"
 
-# ---- CLIs: 1Password ----
-brew "1password-cli"
-
 # ---- Apps de dev (cask) ----
 cask "1password"
+cask "1password-cli"     # CLI do 1Password (op) — é cask, não formula
 cask "orbstack"
 cask "cursor"
 cask "warp"
