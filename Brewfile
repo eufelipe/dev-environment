@@ -25,12 +25,14 @@ brew "bat"
 brew "ripgrep"
 brew "fd"
 brew "tree"
+brew "dust"             # du moderno: árvore visual de uso de disco
 brew "btop"
 brew "tldr"
 
 # ---- CLIs: dev UX ----
 brew "lazygit"
 brew "git-delta"
+brew "glow"             # render de Markdown no terminal (glow arquivo.md)
 brew "trash"
 
 # ---- CLIs: mídia / arquivos ----
@@ -40,6 +42,7 @@ brew "sevenzip"          # binário 7zz, usado pela função extract() em .7z
 # ---- CLIs: containers ----
 brew "docker"
 brew "docker-compose"
+brew "lazydocker"       # TUI pro Docker/OrbStack (espírito do lazygit)
 
 # ---- CLIs: React Native ----
 brew "watchman"

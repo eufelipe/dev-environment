@@ -66,7 +66,8 @@ mise trust               # 👈 se a versão não trocar ao entrar na pasta, é 
 | ripgrep (`rg`) | Busca texto recursiva ultrarrápida (respeita .gitignore) |
 | fd | `find` moderno e rápido |
 | tree | Árvore de diretórios |
-| btop | Monitor de recursos no terminal (CPU/RAM/processos) |
+| dust | `du` moderno: árvore visual de quem ocupa disco |
+| btop | Monitor de recursos no terminal (CPU/RAM/disco/rede) — alias `mon` |
 | tldr | Exemplos práticos de comandos (man page resumida) |
 
 ### Git / dev UX
@@ -74,6 +75,7 @@ mise trust               # 👈 se a versão não trocar ao entrar na pasta, é 
 |---|---|
 | lazygit | TUI pro git (stage/commit/branch visual) — alias `lg` |
 | git-delta | Deixa `git diff`/`git log -p` lindo (syntax, line-numbers) — **já wirado** no `dot_gitconfig` |
+| glow | Render de **Markdown** no terminal (`glow SETUP.md`) |
 | trash | Apaga pra Lixeira (reversível) — alias `del` |
 
 ### Mídia / arquivos
@@ -86,6 +88,7 @@ mise trust               # 👈 se a versão não trocar ao entrar na pasta, é 
 | CLI | Para quê |
 |---|---|
 | docker / docker-compose | Containers (rodam no OrbStack) |
+| lazydocker | TUI pro Docker/OrbStack (containers, logs, stats) — espírito do `lazygit` |
 | watchman | Observador de arquivos (Metro/React Native) |
 | fastlane | Automação de build/release mobile |
 

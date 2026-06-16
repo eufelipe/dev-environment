@@ -42,8 +42,9 @@ alias ip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print \$2}'"  # IP
 alias ports='lsof -i -P -n | grep LISTEN'      # quais processos estão escutando em portas
 alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder && echo flushed'  # limpa o cache de DNS
 alias pingg='ping -c 5 google.com'             # testa a internet (5 pings no Google)
-alias cpu='top -o cpu'                         # processos ordenados por uso de CPU
-alias mem='top -o rsize'                       # processos ordenados por uso de RAM
+alias cpu='top -o cpu'                         # snapshot rápido: processos por uso de CPU
+alias mem='top -o rsize'                       # snapshot rápido: processos por uso de RAM
+alias mon='btop'                               # monitor interativo (CPU/RAM/disco/rede)
 alias update='brew update && brew upgrade'     # atualiza o Homebrew e os pacotes
 alias cleanup='brew cleanup'                   # remove versões/caches antigos do brew
 
