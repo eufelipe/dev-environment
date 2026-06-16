@@ -55,6 +55,7 @@ Assinatura de commit: cole a chave **pública** do 1Password em `user.signingkey
 ## 5. Mobile (React Native)
 ```bash
 brew install watchman
+# Xcode: instalar pela App Store ANTES (não vem no Brewfile), depois:
 sudo xcodebuild -license accept && xcodebuild -runFirstLaunch
 # Android Studio: abrir uma vez → SDK Platform, Platform-Tools, Build-Tools,
 #   Emulator, imagem ARM64, Command-line Tools.
@@ -63,7 +64,7 @@ sudo xcodebuild -license accept && xcodebuild -runFirstLaunch
 
 ## 6. Defaults de macOS
 ```bash
-bash ~/.local/share/chezmoi/scripts/macos-defaults.sh
+bash ~/Projects/dev-environment/scripts/macos-defaults.sh
 ```
 
 ## 7. Verificar
