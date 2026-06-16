@@ -1,10 +1,12 @@
 # Brewfile — eufelipe/dev-environment (Mac M5)
+# Escopo: SÓ ferramentas de dev. Apps pessoais e de App Store: instalar manualmente.
+# Regra: só entra aqui o que você abre/roda hoje. Sugestão não-adotada fica no menu.
 # Instala com:  brew bundle --file=~/.local/share/chezmoi/Brewfile
-# Java vem do mise; CocoaPods via Bundler por projeto (não aqui).
+# Java vem do mise; CocoaPods via Bundler por projeto.
 
 tap "homebrew/bundle"
 
-# Core
+# ---- CLIs: core ----
 brew "git"
 brew "gh"
 brew "chezmoi"
@@ -14,7 +16,7 @@ brew "yq"
 brew "openssl"
 brew "ca-certificates"
 
-# Shell e terminal
+# ---- CLIs: shell e terminal ----
 brew "starship"
 brew "zsh-autosuggestions"
 brew "zsh-completions"
@@ -29,7 +31,7 @@ brew "tree"
 brew "btop"
 brew "tldr"
 
-# Dev UX
+# ---- CLIs: dev UX ----
 brew "lazygit"
 brew "git-delta"
 brew "git-lfs"
@@ -37,23 +39,23 @@ brew "trash"
 brew "httpie"
 brew "act"
 
-# Containers
+# ---- CLIs: containers ----
 brew "docker"
 brew "docker-compose"
 
-# React Native
+# ---- CLIs: React Native ----
 brew "watchman"
 brew "fastlane"
 
-# Segurança e supply chain
+# ---- CLIs: segurança / supply chain ----
 brew "gitleaks"
 brew "trivy"
 brew "semgrep"
 
-# 1Password CLI
+# ---- CLIs: 1Password ----
 brew "1password-cli"
 
-# --- Apps (cask) ---
+# ---- Apps de dev (cask) ----
 cask "1password"
 cask "orbstack"
 cask "cursor"
@@ -61,21 +63,17 @@ cask "warp"
 cask "android-studio"
 cask "brave-browser"
 cask "figma"
-cask "stats"
+cask "stats"             # monitor de RAM/swap — crítico nos 24 GB
 cask "raycast"
-cask "obsidian"
-cask "notion"
+cask "dbeaver-community" # GUI de banco (você usa hoje)
+cask "shottr"            # screenshot/OCR
 
-# Migrados do SOFTWARES.md / curadoria do guia (avaliar)
-cask "dbeaver-community"   # ou TablePlus (pago, nativo) / Beekeeper Studio
-cask "sidenotes"
-cask "shottr"
-cask "keka"                # no lugar do The Unarchiver
-cask "bruno"               # cliente de API local-first (no lugar do Apidog)
+# ---- Menu: avaliar e promover SÓ depois de adotar (descomente) ----
+# cask "bruno"          # cliente de API local-first (no lugar do Apidog)
+# cask "tableplus"      # GUI de banco nativo, mais leve (no lugar do DBeaver)
+# cask "keka"           # extrator de arquivos (no lugar do The Unarchiver)
+# cask "ghostty"        # terminal nativo sem conta (alt. ao Warp)
+# cask "zed"            # editor Rust com IA (2º editor leve)
+# cask "superwhisper"   # ditado voz->texto p/ prompts de agente
 
-# Opcionais / hypados (descomente o que quiser testar)
-# cask "ghostty"           # terminal nativo sem conta (alt. ao Warp)
-# cask "zed"               # editor Rust com IA
-# cask "superwhisper"      # ditado voz→texto p/ prompts de agente
-# cask "discord"
-# cask "languagetool"
+# ---- Apps fora do Brewfile (App Store / download direto / pessoais): ver SOFTWARES.md ----
