@@ -68,5 +68,6 @@
 # E-mail de trabalho só no diretório de trabalho. Crie ~/.gitconfig-work com:
 #   [user]
 #     email = voce@empresa.com
-[includeIf "gitdir:~/Projects/work/**"]
+# gitdir/i: = match case-insensitive (funciona com ~/Projects, ~/PROJECTS, etc.)
+[includeIf "gitdir/i:~/Projects/work/**"]
 	path = ~/.gitconfig-work
