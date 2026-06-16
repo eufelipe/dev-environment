@@ -1,6 +1,4 @@
 # ~/.aliases — gerenciado por chezmoi
-# Mudanças vs Intel: rm NÃO é mais aliasado (era 'safe-rm -rf'); use `del`/`trash`.
-# Editor de configs é o cursor (era nano/code). ls/cat/grep modernizados (eza/bat).
 
 # ---- Configs ----
 alias zshconfig='cursor ~/.zshrc'
@@ -21,9 +19,8 @@ alias mkdir='mkdir -p'
 alias grep='grep --color=auto'
 alias please='sudo !!'
 
-# ---- Apagar com segurança (rm continua sendo rm de verdade) ----
-alias del='trash'                       # vai pra Lixeira (reversível)
-# Deleção destrutiva real é explícita: /bin/rm -rf
+# ---- Apagar com segurança ----
+alias del='trash' # vai pra Lixeira (reversível)
 
 # ---- Navegação ----
 alias ..='cd ..'
@@ -31,7 +28,7 @@ alias ...='cd ../..'
 alias home='cd ~'
 alias dev='cd ~/Projects'
 alias downloads='cd ~/Downloads'
-alias folder='open .'                   # abre a pasta atual no Finder
+alias folder='open .' # abre a pasta atual no Finder
 
 # Atalhos de projeto são por máquina — defina em ~/.zshrc.local (fora do git).
 
@@ -71,7 +68,7 @@ alias rnios='npx react-native run-ios'
 alias rnandroid='npx react-native run-android'
 alias devices='adb devices'
 alias iosdevices='xcrun xctrace list devices'
-alias podreset='cd ios && pod deintegrate && pod install && cd ..'
+alias podreset='cd ios && pod_run deintegrate && pod_run install && cd ..'  # pod_run: bundler se houver Gemfile, senão global
 alias derived='trash ~/Library/Developer/Xcode/DerivedData/*'
 
 # ---- Docker ----
@@ -83,7 +80,6 @@ alias dclogs='docker compose logs -f'
 alias dbash='docker exec -it'
 
 # ---- IA ----
-alias tm='task-master'
 # claude-safe: sandbox no host via agent-safehouse (instale: github.com/eugene1g/agent-safehouse)
 command -v safehouse >/dev/null && alias claude-safe='safehouse claude'
 command -v safehouse >/dev/null && alias claude-safe-skip='safehouse claude --dangerously-skip-permissions'

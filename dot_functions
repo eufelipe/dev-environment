@@ -1,5 +1,4 @@
 # ~/.functions — gerenciado por chezmoi
-# Portadas do setup antigo, com `rm` destrutivo trocado por `trash` onde fazia sentido.
 
 # ---- Navegação / arquivos ----
 
@@ -19,7 +18,7 @@ path() { echo "$PATH" | tr ':' '\n'; }
 # dirsize: tamanho dos diretórios, do maior pro menor.
 dirsize() { du -h -d 1 "$@" | sort -hr; }
 
-# extract: extrai qualquer formato comum.
+# extract: extrai qualquer formato comum. (.7z usa o 7zz do sevenzip; .rar exige unrar)
 extract() {
   [ -f "$1" ] || { echo "'$1' não é um arquivo válido"; return 1; }
   case "$1" in
@@ -30,7 +29,7 @@ extract() {
     *.gz)             gunzip  "$1" ;;
     *.zip)            unzip   "$1" ;;
     *.rar)            unrar x "$1" ;;
-    *.7z)             7z x    "$1" ;;
+    *.7z)             7zz x "$1" 2>/dev/null || 7z x "$1" ;;
     *.Z)              uncompress "$1" ;;
     *) echo "'$1' não pode ser extraído via extract()" ;;
   esac
@@ -81,6 +80,16 @@ fork() {
 # ios_simulator: abre o Simulator.
 ios_simulator() { open -a Simulator; }
 
+# pod_run: roda CocoaPods via Bundler se houver Gemfile (versão pinada), senão global.
+# Roda de ios/ ou da raiz do projeto — por isso checa Gemfile no diretório atual e no pai.
+pod_run() {
+  if [ -f Gemfile ] || [ -f ../Gemfile ]; then
+    bundle exec pod "$@"
+  else
+    command pod "$@"
+  fi
+}
+
 # apocalipse: limpeza total de um projeto RN (node_modules, caches, Pods, DerivedData).
 apocalipse() {
   echo "💀 Apocalipse: limpando o projeto..."
@@ -95,7 +104,7 @@ apocalipse() {
 
   if [ -d ios ]; then
     echo "🍏 Pods..."
-    (cd ios && trash Pods Podfile.lock 2>/dev/null; pod install)
+    (cd ios && trash Pods Podfile.lock 2>/dev/null; pod_run install)
   fi
 
   [ -d ~/Library/Developer/Xcode/DerivedData ] && trash ~/Library/Developer/Xcode/DerivedData/* 2>/dev/null

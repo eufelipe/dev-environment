@@ -39,6 +39,10 @@ brew "trash"
 brew "httpie"
 brew "act"
 
+# ---- CLIs: mídia / arquivos ----
+brew "yt-dlp"            # usado pelo alias ytaudio
+brew "sevenzip"          # binário 7zz, usado pela função extract() em .7z
+
 # ---- CLIs: containers ----
 brew "docker"
 brew "docker-compose"
@@ -62,7 +66,6 @@ cask "cursor"
 cask "warp"
 cask "android-studio"
 cask "brave-browser"
-cask "figma"
 cask "stats"             # monitor de RAM/swap — crítico nos 24 GB
 cask "raycast"
 cask "dbeaver-community" # GUI de banco (você usa hoje)

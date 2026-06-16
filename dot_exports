@@ -1,5 +1,4 @@
 # ~/.exports — gerenciado por chezmoi
-# Sem cruft Intel: nada de /usr/local, nvm, pyenv, rbenv (mise cuida dos runtimes).
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
@@ -11,7 +10,6 @@ export HISTCONTROL=ignoredups
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export ANDROID_SDK_ROOT="$ANDROID_HOME"
 export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
-# JAVA_HOME é gerenciado pelo mise — NÃO setar aqui (evita brigar com o Gradle JDK).
 
 # Docker / OrbStack
 export DOCKER_BUILDKIT=1

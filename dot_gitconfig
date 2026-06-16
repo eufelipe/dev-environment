@@ -7,7 +7,7 @@
 
 [gpg]
 	format = ssh
-	
+
 [gpg "ssh"]
 	# 1Password assina os commits (chave off-disk, biometria):
 	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
@@ -22,20 +22,28 @@
 
 [init]
 	defaultBranch = main
+
 [pull]
 	rebase = true
+
 [rebase]
 	autoStash = true
+
 [push]
 	autoSetupRemote = true
+
 [merge]
 	conflictstyle = zdiff3
+
 [rerere]
 	enabled = true
+
 [diff]
 	tool = cursor
+
 [difftool "cursor"]
 	cmd = cursor --wait --diff "$LOCAL" "$REMOTE"
+	
 [credential]
 	helper = osxkeychain
 
