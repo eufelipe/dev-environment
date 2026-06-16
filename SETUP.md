@@ -45,6 +45,8 @@ Host github.com
 ```bash
 ssh -T git@github.com
 ```
+Assinatura de commit: cole a chave **pública** do 1Password em `user.signingkey`
+(em `~/.gitconfig.local`) e mude `commit.gpgsign` para `true` no `~/.gitconfig`.
 
 ## 5. Mobile (React Native)
 ```bash
