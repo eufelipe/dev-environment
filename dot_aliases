@@ -7,7 +7,7 @@ alias exportsconfig='cursor ~/.exports'
 alias functionsconfig='cursor ~/.functions'
 alias gitconfig='cursor ~/.gitconfig'
 alias sshconfig='cursor ~/.ssh/config'
-alias reload='source ~/.zshrc'
+alias reload='source ~/.zshrc'                 # recarrega o shell sem reabrir o terminal
 
 # ---- Geral ----
 alias c='clear'
@@ -17,10 +17,10 @@ alias ls='eza'
 alias cat='bat'
 alias mkdir='mkdir -p'
 alias grep='grep --color=auto'
-alias please='sudo !!'
+alias please='sudo !!'                         # repete o ÚLTIMO comando com sudo
 
 # ---- Apagar com segurança ----
-alias del='trash' # vai pra Lixeira (reversível)
+alias del='trash'                              # vai pra Lixeira (reversível)
 
 # ---- Navegação ----
 alias ..='cd ..'
@@ -28,7 +28,7 @@ alias ...='cd ../..'
 alias home='cd ~'
 alias dev='cd ~/Projects'
 alias downloads='cd ~/Downloads'
-alias folder='open .' # abre a pasta atual no Finder
+alias folder='open .'                          # abre a pasta atual no Finder
 
 # Atalhos de projeto são por máquina — defina em ~/.zshrc.local (fora do git).
 
@@ -37,19 +37,19 @@ alias show='defaults write com.apple.finder AppleShowAllFiles -bool true  && kil
 alias hide='defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder'
 
 # ---- Sistema / rede ----
-alias localip='ipconfig getifaddr en0'
-alias ip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print \$2}'"
-alias ports='lsof -i -P -n | grep LISTEN'
-alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder && echo flushed'
-alias pingg='ping -c 5 google.com'
-alias cpu='top -o cpu'
-alias mem='top -o rsize'
-alias update='brew update && brew upgrade'
-alias cleanup='brew cleanup'
+alias localip='ipconfig getifaddr en0'         # IP local da Wi-Fi (interface en0)
+alias ip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print \$2}'"  # IP local (qualquer interface)
+alias ports='lsof -i -P -n | grep LISTEN'      # quais processos estão escutando em portas
+alias flushdns='sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder && echo flushed'  # limpa o cache de DNS
+alias pingg='ping -c 5 google.com'             # testa a internet (5 pings no Google)
+alias cpu='top -o cpu'                         # processos ordenados por uso de CPU
+alias mem='top -o rsize'                       # processos ordenados por uso de RAM
+alias update='brew update && brew upgrade'     # atualiza o Homebrew e os pacotes
+alias cleanup='brew cleanup'                   # remove versões/caches antigos do brew
 
 # ---- Git ----
 alias gs='git status -sb'
-alias lg='lazygit'
+alias lg='lazygit'                             # interface visual (TUI) pro git
 
 # ---- Pacotes (pnpm preferido) ----
 alias pn='pnpm'
@@ -62,22 +62,22 @@ alias nd='npm run dev'
 
 # ---- React Native / mobile ----
 alias metro='npx react-native start'
-alias metro-reset='npx react-native start --reset-cache'
+alias metro-reset='npx react-native start --reset-cache'   # inicia o Metro limpando o cache (resolve builds "fantasma")
 alias rn='npx react-native'
 alias rnios='npx react-native run-ios'
 alias rnandroid='npx react-native run-android'
-alias devices='adb devices'
-alias iosdevices='xcrun xctrace list devices'
-alias podreset='cd ios && pod_run deintegrate && pod_run install && cd ..'  # pod_run: bundler se houver Gemfile, senão global
-alias derived='trash ~/Library/Developer/Xcode/DerivedData/*'
+alias devices='adb devices'                    # lista dispositivos/emuladores Android
+alias iosdevices='xcrun xctrace list devices'  # lista dispositivos/simuladores iOS
+alias podreset='cd ios && pod_run deintegrate && pod_run install && cd ..'  # reinstala os Pods do zero (pod_run: bundler se houver Gemfile)
+alias derived='trash ~/Library/Developer/Xcode/DerivedData/*'  # limpa caches de build do Xcode (libera GBs)
 
 # ---- Docker ----
-alias dps='docker ps'
-alias dimg='docker images'
-alias dcup='docker compose up -d'
-alias dcdown='docker compose down'
-alias dclogs='docker compose logs -f'
-alias dbash='docker exec -it'
+alias dps='docker ps'                          # containers rodando
+alias dimg='docker images'                     # imagens locais
+alias dcup='docker compose up -d'              # sobe os serviços do compose em background
+alias dcdown='docker compose down'             # para e remove os serviços
+alias dclogs='docker compose logs -f'          # acompanha os logs ao vivo
+alias dbash='docker exec -it'                  # abre um shell dentro de um container (dbash <id> bash)
 
 # ---- IA ----
 # claude-safe: sandbox no host via agent-safehouse (instale: github.com/eugene1g/agent-safehouse)
@@ -85,5 +85,5 @@ command -v safehouse >/dev/null && alias claude-safe='safehouse claude'
 command -v safehouse >/dev/null && alias claude-safe-skip='safehouse claude --dangerously-skip-permissions'
 
 # ---- Útils ----
-alias ytaudio='yt-dlp -x --audio-format mp3'
-alias weather='curl --silent http://wttr.in/Rio'
+alias ytaudio='yt-dlp -x --audio-format mp3'   # baixa só o áudio (mp3) de um vídeo
+alias weather='curl --silent http://wttr.in/Rio'  # previsão do tempo no terminal (Rio)
