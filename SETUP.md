@@ -22,8 +22,10 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 brew install chezmoi
 # Clona o repo numa pasta minha (HTTPS — SSH ainda não está pronto neste passo):
 git clone https://github.com/eufelipe/dev-environment.git ~/Projects/dev-environment
-# Usa essa pasta como FONTE do chezmoi (some o ~/.local/share/chezmoi):
-chezmoi init --source=~/Projects/dev-environment
+# Fixa essa pasta como FONTE do chezmoi — o flag --source NÃO persiste, vai na config:
+mkdir -p ~/.config/chezmoi
+printf 'sourceDir = "%s/Projects/dev-environment"\n' "$HOME" > ~/.config/chezmoi/chezmoi.toml
+chezmoi source-path     # confirma: /Users/<você>/Projects/dev-environment
 chezmoi diff            # revisar antes de aplicar
 chezmoi apply -v
 brew bundle --file=~/Projects/dev-environment/Brewfile

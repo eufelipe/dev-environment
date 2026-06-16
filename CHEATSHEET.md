@@ -9,7 +9,10 @@ Referência rápida: comandos do chezmoi e do mise + o que cada CLI do Brewfile 
 ```bash
 # Setup na máquina nova usando ~/Projects/dev-environment como fonte:
 git clone git@github.com:eufelipe/dev-environment.git ~/Projects/dev-environment
-chezmoi init --source=~/Projects/dev-environment   # fixa a fonte aqui (some o ~/.local/share/chezmoi)
+# Fixa a fonte na config (o flag --source NÃO persiste entre comandos):
+mkdir -p ~/.config/chezmoi
+printf 'sourceDir = "%s/Projects/dev-environment"\n' "$HOME" > ~/.config/chezmoi/chezmoi.toml
+chezmoi source-path                                 # confirma o caminho
 chezmoi diff                                        # revisar
 chezmoi apply -v                                    # aplicar
 

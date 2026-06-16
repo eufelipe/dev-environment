@@ -12,7 +12,8 @@ xcode-select --install
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install chezmoi
 git clone https://github.com/eufelipe/dev-environment.git ~/Projects/dev-environment
-chezmoi init --source=~/Projects/dev-environment   # usa esta pasta como fonte
+mkdir -p ~/.config/chezmoi   # fixa a fonte (o flag --source NÃO persiste):
+printf 'sourceDir = "%s/Projects/dev-environment"\n' "$HOME" > ~/.config/chezmoi/chezmoi.toml
 chezmoi diff                                        # revisar antes
 chezmoi apply -v
 brew bundle --file=~/Projects/dev-environment/Brewfile
