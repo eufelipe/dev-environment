@@ -9,7 +9,9 @@ export HISTCONTROL=ignoredups
 # Android SDK (React Native)
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export ANDROID_SDK_ROOT="$ANDROID_HOME"
-export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
+# Append (vai pro FIM do PATH): adb/emulator não precisam de prioridade e
+# assim não ficam na frente dos runtimes do mise.
+export PATH="$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin"
 
 # Docker / OrbStack
 export DOCKER_BUILDKIT=1

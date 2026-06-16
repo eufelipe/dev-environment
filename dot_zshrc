@@ -5,6 +5,9 @@
 export EDITOR="cursor --wait"
 export VISUAL="cursor --wait"
 
+# PATH sem duplicatas (zsh mantém só a 1ª ocorrência de cada entrada)
+typeset -U path PATH
+
 # Homebrew (Apple Silicon → /opt/homebrew)
 [ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
