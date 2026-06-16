@@ -73,7 +73,7 @@ mise trust               # 👈 se a versão não trocar ao entrar na pasta, é 
 | CLI | Para quê |
 |---|---|
 | lazygit | TUI pro git (stage/commit/branch visual) — alias `lg` |
-| git-delta | Deixa `git diff` lindo (syntax, lado-a-lado) — ⚠️ **precisa wirar no gitconfig**, senão não faz nada |
+| git-delta | Deixa `git diff`/`git log -p` lindo (syntax, line-numbers) — **já wirado** no `dot_gitconfig` |
 | trash | Apaga pra Lixeira (reversível) — alias `del` |
 
 ### Mídia / arquivos

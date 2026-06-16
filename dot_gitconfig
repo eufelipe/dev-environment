@@ -19,6 +19,15 @@
 [core]
 	editor = cursor --wait
 	excludesfile = ~/.gitignore_global
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true        # n/N pra navegar entre os diffs
+	line-numbers = true
+	# side-by-side = true  # descomente p/ diff lado-a-lado
 
 [init]
 	defaultBranch = main
