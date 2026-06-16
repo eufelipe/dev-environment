@@ -80,4 +80,4 @@ node -v && ruby -v && java -version && watchman --version && starship --version
 - `.mise.toml` **por repo** (`CODE/<repo>`), nunca na raiz do projeto.
 - Segredos no **1Password**. `.env` só com referências `op://`; rodar com `op run --env-file=.env -- <cmd>`.
 - Ajustes só-desta-máquina em `~/.zshrc.local` (fora do git).
-- Agente de IA só abre em `CODE/<repo>`. Autônomo (`--dangerously-skip-permissions`) só em container. Ver `claude/CLAUDE.md`.
+- Agente de IA só abre em `CODE/<repo>`. Autônomo (`--dangerously-skip-permissions`) só em container. Ver `~/.claude/CLAUDE.md` (`dot_claude/`).
