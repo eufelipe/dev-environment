@@ -20,11 +20,15 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 ## 2. Dotfiles + apps
 ```bash
 brew install chezmoi
-chezmoi init https://github.com/eufelipe/dev-environment.git
+# Clona o repo numa pasta minha (HTTPS — SSH ainda não está pronto neste passo):
+git clone https://github.com/eufelipe/dev-environment.git ~/Projects/dev-environment
+# Usa essa pasta como FONTE do chezmoi (some o ~/.local/share/chezmoi):
+chezmoi init --source=~/Projects/dev-environment
 chezmoi diff            # revisar antes de aplicar
 chezmoi apply -v
-brew bundle --file=~/.local/share/chezmoi/Brewfile
+brew bundle --file=~/Projects/dev-environment/Brewfile
 ```
+> Depois do passo 4 (SSH), troque o remote: `cd ~/Projects/dev-environment && git remote set-url origin git@github.com:eufelipe/dev-environment.git`
 
 ## 3. Runtimes (mise) + Corepack
 ```bash

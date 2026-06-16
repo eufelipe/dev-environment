@@ -1,6 +1,7 @@
 # Arquivos do repo que NÃO devem ser aplicados ao home pelo chezmoi.
 README.md
 SETUP.md
+CHEATSHEET.md
 Brewfile
 Brewfile.lock.json
 SOFTWARES.md
