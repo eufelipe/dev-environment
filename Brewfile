@@ -26,7 +26,7 @@ brew "fd"
 brew "tree"
 brew "dust"             # du moderno: árvore visual de uso de disco
 brew "btop"
-brew "tldr"
+brew "tlrc"             # cliente tldr oficial (o formula "tldr" foi desabilitado)
 
 # ---- CLIs: dev UX ----
 brew "lazygit"
