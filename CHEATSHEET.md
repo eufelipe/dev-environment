@@ -51,9 +51,6 @@ mise trust               # 👈 se a versão não trocar ao entrar na pasta, é 
 | chezmoi | Gerenciador de dotfiles |
 | mise | Gerenciador de runtimes + env + tasks |
 | jq | Filtra/transforma **JSON** na linha de comando |
-| yq | Igual ao jq, mas pra **YAML** (compose/CI/k8s) — *opcional se você não mexe com YAML* |
-| openssl | Toolkit de cripto/TLS (gerar chaves, inspecionar certs) — *quase sempre vem como dependência* |
-| ca-certificates | Bundle de certificados raiz (confiança TLS) — *dependência, raramente explícito* |
 
 ### Shell e terminal
 | CLI | Para quê |
@@ -77,10 +74,7 @@ mise trust               # 👈 se a versão não trocar ao entrar na pasta, é 
 |---|---|
 | lazygit | TUI pro git (stage/commit/branch visual) — alias `lg` |
 | git-delta | Deixa `git diff` lindo (syntax, lado-a-lado) — ⚠️ **precisa wirar no gitconfig**, senão não faz nada |
-| git-lfs | Git Large File Storage (binários grandes) — *só se algum repo usa LFS* |
 | trash | Apaga pra Lixeira (reversível) — alias `del` |
-| httpie | Cliente HTTP legível (`http GET ...`) — *alternativa ao curl* |
-| act | Roda GitHub Actions localmente — *niche* |
 
 ### Mídia / arquivos
 | CLI | Para quê |
@@ -99,6 +93,5 @@ mise trust               # 👈 se a versão não trocar ao entrar na pasta, é 
 | CLI | Para quê |
 |---|---|
 | gitleaks | Varre o repo procurando segredos vazados |
-| trivy | Scanner de vulnerabilidades (deps/imagens/filesystem) — *só se você roda* |
 | semgrep | Análise estática (regras de segurança/qualidade) |
 | 1password-cli (`op`) | Injeta segredos do 1Password em runtime |

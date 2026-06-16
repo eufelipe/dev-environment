@@ -1,7 +1,7 @@
 # Brewfile — eufelipe/dev-environment (Mac M5)
 # Escopo: SÓ ferramentas de dev. Apps pessoais e de App Store: instalar manualmente.
 # Regra: só entra aqui o que você abre/roda hoje. Sugestão não-adotada fica no menu.
-# Instala com:  brew bundle --file=~/.local/share/chezmoi/Brewfile
+# Instala com:  brew bundle --file=~/Projects/dev-environment/Brewfile
 # Java vem do mise; CocoaPods via Bundler por projeto.
 
 tap "homebrew/bundle"
@@ -12,9 +12,6 @@ brew "gh"
 brew "chezmoi"
 brew "mise"
 brew "jq"
-brew "yq"
-brew "openssl"
-brew "ca-certificates"
 
 # ---- CLIs: shell e terminal ----
 brew "starship"
@@ -34,10 +31,7 @@ brew "tldr"
 # ---- CLIs: dev UX ----
 brew "lazygit"
 brew "git-delta"
-brew "git-lfs"
 brew "trash"
-brew "httpie"
-brew "act"
 
 # ---- CLIs: mídia / arquivos ----
 brew "yt-dlp"            # usado pelo alias ytaudio
@@ -53,7 +47,6 @@ brew "fastlane"
 
 # ---- CLIs: segurança / supply chain ----
 brew "gitleaks"
-brew "trivy"
 brew "semgrep"
 
 # ---- CLIs: 1Password ----
