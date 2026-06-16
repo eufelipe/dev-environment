@@ -49,8 +49,9 @@ Host github.com
 ```bash
 ssh -T git@github.com
 ```
-Assinatura de commit: cole a chave **pública** do 1Password em `user.signingkey`
-(em `~/.gitconfig.local`) e mude `commit.gpgsign` para `true` no `~/.gitconfig`.
+Assinatura de commit: criar `~/.gitconfig.local` (fora do git) com a chave **pública**
+do 1Password em `user.signingkey` + `[commit] gpgsign = true`. O `dot_gitconfig` já
+faz `[include]` desse arquivo, então ele sobrescreve o `gpgsign=false` padrão.
 
 ## 5. Mobile (React Native)
 ```bash

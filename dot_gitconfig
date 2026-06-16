@@ -80,3 +80,13 @@
 # gitdir/i: = match case-insensitive (funciona com ~/Projects, ~/PROJECTS, etc.)
 [includeIf "gitdir/i:~/Projects/work/**"]
 	path = ~/.gitconfig-work
+
+# Config local desta máquina (fora do git) — assinatura de commit vai aqui.
+# Criar ~/.gitconfig.local com:
+#   [user]
+#     signingkey = ssh-ed25519 AAAA...   (chave PÚBLICA do 1Password)
+#   [commit]
+#     gpgsign = true
+# Vem por último → sobrescreve o gpgsign=false acima quando a chave estiver setada.
+[include]
+	path = ~/.gitconfig.local
