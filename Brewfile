@@ -34,6 +34,9 @@ brew "git-delta"
 brew "glow"             # render de Markdown no terminal (glow arquivo.md)
 brew "trash"
 
+# ---- CLIs: banco de dados ----
+brew "libpq"            # cliente PostgreSQL (pg_dump, pg_restore, psql) — keg-only, sem servidor
+
 # ---- CLIs: mídia / arquivos ----
 brew "yt-dlp"            # usado pelo alias ytaudio
 brew "sevenzip"          # binário 7zz, usado pela função extract() em .7z

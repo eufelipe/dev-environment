@@ -33,3 +33,10 @@ export LESS="-R"
 
 # Usar todos os cores na compilação
 export MAKEFLAGS="-j$(sysctl -n hw.ncpu 2>/dev/null || echo 4)"
+
+# Claude Code CLI (~/.local/bin)
+export PATH="$HOME/.local/bin:$PATH"
+
+# libpq — cliente PostgreSQL (pg_dump, pg_restore, psql). keg-only: não linka sozinho.
+# Prepend é seguro: roda antes do mise activate (zshrc), mas pg_dump não é runtime do mise.
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
